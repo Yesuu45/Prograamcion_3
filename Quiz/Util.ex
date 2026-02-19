@@ -1,44 +1,44 @@
 defmodule Util do
+  def mostrar_mensaje(mensaje) do
+    mensaje
+    |> IO.puts()
+  end
 
-  # Ingresar entero
-  def ingresar(mensaje, :entero),
-    do: ingresar(mensaje, &String.to_integer/1, :entero)
-
-  # Ingresar real
-  def ingresar(mensaje, :real),
-    do: ingresar(mensaje, &String.to_float/1, :real)
-
-  # Ingresar texto
   def ingresar(mensaje, :texto) do
     mensaje
     |> IO.gets()
     |> String.trim()
   end
 
-  def mostrar_mensaje(mensaje) do
-    IO.puts(mensaje)
+  def calcular_valor_descuento(valor_producto, porcentaje_descuento) do
+    valor_producto * (porcentaje_descuento / 100)
   end
 
-  def mostrar_error(mensaje) do
-    IO.puts(mensaje)
+  def calcular_valor_final(valor_producto, valor_descuento) do
+    valor_producto - valor_descuento
   end
 
-  # Función privada genérica
-  defp ingresar(mensaje, funcion, tipo) do
-    try do
-      mensaje
-      |> ingresar(:texto)
-      |> funcion.()
+  def  ingresar(mensaje, :entero),do: ingresar(mensaje, &String.to_integer/1, :entero)
+  def ingresar(mensaje, :real),do: ingresar(mensaje, &String.to_float/1, :real)
 
+
+  defp ingresar(mensaje , parser , tipo_dato) do
+    mensaje
+    |> ingresar(:texto)
+    |> parser.()
     rescue
       ArgumentError ->
-        mostrar_error("Error, se espera que ingrese un número #{tipo}\n")
-        ingresar(mensaje, tipo)
-    end
+        "Error: Ingrese un valor #{tipo_dato} \n"
+        |>mostrar_error()
+
+        mensaje
+        ingresar(mensaje, parser, tipo_dato)
+
   end
 
-
-
+  defp mostrar_error(mensaje) do
+    mensaje
+    |> IO.puts()
+  end
   
-
 end
