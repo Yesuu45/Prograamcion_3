@@ -40,5 +40,5 @@ defmodule Util do
     mensaje
     |> IO.puts()
   end
-  
+
 end
