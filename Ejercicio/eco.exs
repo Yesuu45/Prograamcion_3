@@ -1,22 +1,18 @@
-defmodule Eco do
-  @moduledoc """
-  Dado un mensaje, imprimirlo en mayúsculas.
-  """
+defmodule EntradaDatos do
 
-  @doc """
-  Dado un mensaje, imprimirlo en mayúsculas.
-  ## Ejemplo
-
-      iex> Eco.main("hola mundo")
-      "HOLA MUNDO"
-
-  """
   def main do
-    mensaje = System.argv()
-    |> List.first()
-    mensaje_mayus = String.upcase(mensaje)
-    IO.puts(mensaje_mayus)
+    "Ingrese nombre del empleado:"
+    |> Util.ingresar(:texto)
+    |> generar_mensaje()
+    |> Util.mostrar_mensaje()
   end
+
+  defp generar_mensaje(nil), do: "No se ingresó ningún nombre."
+
+  defp generar_mensaje(nombre) do
+    "Bienvenido #{nombre} a la empresa Once Ltda"
+  end
+
 end
 
-Eco.main()
+EntradaDatos.main()

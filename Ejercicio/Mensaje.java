@@ -1,21 +1,31 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import javax.swing.JOptionPane;
 
 public class Mensaje {
+
     public static void main(String[] args) {
-        String mensaje = "Hola mundo";
 
-        try {
-            Process proceso = new ProcessBuilder("cmd", "/c", "elixir eco.exs \"" + mensaje + "\"")
-                                    .start();
+        if (args.length > 0 && args[0].equals("input")) {
 
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(proceso.getInputStream()))) {
-                reader.lines().forEach(line -> System.out.println("Respuesta desde Elixir: " + line));
+            String mensaje = (args.length > 1)
+                    ? args[1]
+                    : "Ingrese un valor:";
+
+            String input = JOptionPane.showInputDialog(null, mensaje);
+
+            if (input != null) {
+                System.out.println(input);
             }
 
-            proceso.waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else if (args.length > 0) {
+
+            JOptionPane.showMessageDialog(null, args[0]);
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No se proporcionó ningún mensaje"
+            );
         }
     }
 }
