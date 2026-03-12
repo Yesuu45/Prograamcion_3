@@ -58,6 +58,8 @@ defmodule Tienda do
     IO.puts("4. Eliminar usuario")
     IO.puts("5. Eliminar propiedad")
     IO.puts("6. Guardar y Cerrar Sesion")
+    IO.puts("7. Actualizar Usuario")      # Añadido para que el usuario lo vea
+    IO.puts("8. Actualizar Propiedad")    # Añadido para que el usuario lo vea
 
     opcion = Util.ingresar_entero("Ingrese la opcion")
 
@@ -90,7 +92,37 @@ defmodule Tienda do
         IO.puts("[OK] Datos guardados correctamente.")
         inicio_sesion(lista_u, lista_p)
 
-      _ -> menu(lista_u, lista_p)
+      7 ->
+        IO.puts("\n--- ACTUALIZAR USUARIO ---")
+        id = Util.ingresar_texto("Ingrese el ID del usuario que quiere modificar")
+        campo = Util.ingresar_texto("Campo a cambiar (nombre, id, edad)")
+
+        nuevo_valor = if campo == "edad" do
+          Util.ingresar_entero("Ingrese la nueva edad") # Corregido: Util con mayúscula
+        else
+          Util.ingresar_texto("Ingrese el nuevo valor")
+        end
+
+        lista_u_nueva = Util.actualizar(lista_u, id, campo, nuevo_valor)
+        menu(lista_u_nueva, lista_p)
+
+      8 ->
+        IO.puts("\n--- ACTUALIZAR PROPIEDAD ---")
+        id_p = Util.ingresar_texto("Ingrese el ID de la propiedad a modificar")
+        IO.puts("Campos editables: direccion, precio, tipo, opcion_negocio")
+        campo = Util.ingresar_texto("¿Que campo desea cambiar?")
+
+        nuevo_valor = if campo == "precio" do
+          Util.ingresar_entero("Ingrese el nuevo precio")
+        else
+          Util.ingresar_texto("Ingrese el nuevo valor")
+        end
+
+        nueva_lista_p = Util.actualizar(lista_p, id_p, campo, nuevo_valor)
+        menu(lista_u, nueva_lista_p)
+
+      _ ->
+        menu(lista_u, lista_p) # Corregido: Solo pasar las listas originales
     end
   end
 
