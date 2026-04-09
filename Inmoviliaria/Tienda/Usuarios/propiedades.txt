@@ -1,1 +1,1 @@
-[]
+[%{id: "1111", opcion_negocio: "alquiler", estado: :disponible, direccion: "cdcd", precio: 50000000, tipo: "casa"}, %{id: "2314", opcion_negocio: "venta", estado: :disponible, direccion: "BARIRIO", precio: 25000, tipo: "casa"}]
