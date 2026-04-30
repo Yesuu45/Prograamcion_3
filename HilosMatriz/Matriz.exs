@@ -8,17 +8,16 @@ defmodule Matriz do
 
     ]
 
-    # 1. Construir/Crear los 2 procesos independientes
     t1 = Task.async(fn -> s1(matriz) end)
     t2 = Task.async(fn -> s2(matriz) end)
 
-    # 2. Esperar a que los procesos terminen y obtener sus valores
     resultado_s1 = Task.await(t1)
     {suma_total, _promedio} = Task.await(t2)
 
-    # 3. Usar los resultados en las funciones s3 y s4
     valor_c = s3(resultado_s1, suma_total)
     s4(valor_c)
+
+
   end
 
   def s1(matriz) do
